@@ -40,3 +40,6 @@ interface:
 	tellSidebar_ItemOnload(id, name)
 	tellSidebar_AllItemOnload()
 	tellSidebar_OnWhichItem(id, name)
+
+global var:
+	g_language
