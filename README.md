@@ -1,10 +1,10 @@
 # ftStudioWebIndex
 Feitian Studio Web Index JS and CSS
 
-div id indexMain
+div id index-main
 
-indexMain.js
-indexMain.css
+index_main.js
+index_main.css
 
 X for banner index
 
