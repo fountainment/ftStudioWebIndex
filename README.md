@@ -37,6 +37,6 @@ banner:
 			class: banner-button
 
 interface:
-	tellSidebar_BannerOnload(id, name)
-	tellSidebar_AllBannerOnload()
-	tellSidebar_OnWhichBanner(id, name)
+	tellSidebar_ItemOnload(id, name)
+	tellSidebar_AllItemOnload()
+	tellSidebar_OnWhichItem(id, name)
