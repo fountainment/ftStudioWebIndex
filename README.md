@@ -3,8 +3,8 @@ Feitian Studio Web Index JS and CSS
 
 div id index-main
 
-index_main.js
-index_main.css
+index-main.js
+index-main.css
 
 X for banner index
 

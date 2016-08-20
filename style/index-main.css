@@ -1,0 +1,32 @@
+div {
+	margin:0px;
+	padding:0px;
+}
+
+body {
+	padding:0px;
+	margin:0px;
+	width:100%;
+	background-color:#000;
+	visibility:hidden;
+}
+
+#index-main {
+	width:100%;
+}
+
+.banner {
+	width:100%;
+	/* 4:1 banner */
+	padding-bottom:25%;
+	/* make banner-child's position relative to banner*/
+	position:relative;
+}
+
+.banner-child {
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0px;
+	left:0px;
+}
