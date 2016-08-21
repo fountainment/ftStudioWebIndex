@@ -41,6 +41,7 @@ interface:
 	tellSidebar_ItemOnload(id, name)
 	tellSidebar_AllItemOnload()
 	tellSidebar_OnScroll()
+	tellSidebar_OnResize()
 
 global var:
 	g_language

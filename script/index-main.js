@@ -22,6 +22,7 @@ function window_update()
 
 function scroll_update()
 {
+	tellSidebar_OnScroll();
 }
 
 function scroll()
@@ -70,6 +71,7 @@ function load_banner(banner_array)
 	var main_div = getItById("index-main");
 	var len = banner_array.length
 	banner_array.onload = function() {
+		tellSidebar_AllItemOnload();
 	}
 	for (var i = 0; i < len; i++) {
 		var banner_obj = banner_array[i];
@@ -85,7 +87,8 @@ function load_banner(banner_array)
 		main_div.appendChild(banner_div);
 	}
 	for (var i = 0; i < len - 1; i++) {
-			banner_array[i].div.onload = function() {
+			banner_array[i].onload = function() {
+				tellSidebar_ItemOnload(this.id, this.name);
 				banner_array[this.index + 1].load();
 			};
 	}
@@ -106,6 +109,7 @@ function register_callback_function()
 
 	window.onresize = function() {
 		window_update();
+		tellSidebar_OnResize();
 		scroll_update();
 	}
 
@@ -123,6 +127,7 @@ function register_callback_function()
 		//$("body").hide(0);
 		$("body").css("visibility", "visible");
 		load_banner(banner);
+		tellSidebar_WindowOnload();
 	}
 }
 
