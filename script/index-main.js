@@ -34,19 +34,40 @@ function load_loading_gif()
 	loading_gif.src = "image/loading.gif";
 }
 
+function load_banner_resources(banner_obj)
+{
+}
+
 function load_banner(banner_array)
 {
 	var main_div = getItById("index-main");
-	for (var i = 0; i < banner_array.length; i++) {
-		var banner = banner_array[i];
-		var banner_div = makeDiv("banner" + i, "banner");
-		banner_div.name = banner.name;
-		if (banner.height) {
-			$(banner_div).css("padding-bottom", banner.height);
+	var len = banner_array.length
+	banner_array.onload = function() {
+
+	}
+	for (var i = 0; i < len; i++) {
+		var banner_obj = banner_array[i];
+		banner_obj.id = "banner" + i;
+		var banner_div = makeDiv(banner_obj.id, "banner");
+		banner_obj.div = banner_div;
+		banner_obj.index = i;
+		if (banner_obj.height) {
+			$(banner_div).css("padding-bottom", banner_obj.height);
 		}
 		$(banner_div).css("background-color", randomColor());
-		//banner_div.onload = function () {alert(this.id);};
+		banner_obj.load = function () {load_banner_resources(this);};
 		main_div.appendChild(banner_div);
+	}
+	for (var i = 0; i < len - 1; i++) {
+			banner_array[i].div.onload = function() {
+				banner_array[this.index + 1].load();
+			};
+	}
+	if (len >= 1) {
+		banner_array[len - 1].onload = function() {
+			banner_array.onload();
+		};
+		banner_array[0].load();
 	}
 }
 
