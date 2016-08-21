@@ -14,6 +14,8 @@ var banner = [{"name":"top", "front_num":0, "height":"60%"},
 				{"name":"justfall", "front_num":1},
 				{"name":"fountain", "front_num":1}];
 
+var session_id = Math.random();
+
 function window_update()
 {
 	scroll_space = getScrollSpace();
@@ -40,7 +42,7 @@ function get_image_fullname(image_name)
 {
 	var ret = image_name;
 	ret = "image/" + ret;
-	ret += "?" + Math.random();
+	ret += "?" + session_id;
 	return ret;
 }
 
@@ -67,7 +69,7 @@ function finish_banner(banner_obj)
 	banner_obj.loading_div.style.display = "none";
 	var len = banner_obj.id_list.length;
 	for (var i = 0; i < len; i++) {
-		$("#" + banner_obj.id_list[i]).css("background", 'url(image/' + banner_obj.resources[i] + ') no-repeat');
+		$("#" + banner_obj.id_list[i]).css("background", 'url(' + get_image_fullname(banner_obj.resources[i]) + ') no-repeat');
 		$("#" + banner_obj.id_list[i]).css("background-size", '100% auto');
 	}
 	$(banner_obj.content_div).fadeIn(500);
