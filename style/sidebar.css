@@ -2,7 +2,6 @@
 	position: fixed;
 	width: 250px;
 	height: 100%;
-	padding-top: 23%;
 	top: 0px;
 	right: -200px;
 	background-color: rgba(0, 0, 0, .8);
@@ -11,9 +10,9 @@
 .sidebar-item{
 	background-repeat: no-repeat;
 	background-size: cover;
-	background-position-y: 0px;
 	position: relative;
 	left: 50px;
 	height: 50px;
 	width: 250px;
+	cursor: pointer;
 }
