@@ -1,3 +1,8 @@
+function getItById(id)
+{
+	return document.getElementById(id);
+}
+
 function getWindowHeight()
 {
 	return $(window).height();
@@ -53,4 +58,14 @@ function scrollToAnimation(id, ms)
 		scrollTarget = 0;
 	}
 	$("html, body").animate({scrollTop:scrollTarget}, ms);
+}
+
+function makeDiv(id_name, class_name)
+{
+	ret = document.createElement("div");
+	if (id_name && id_name.length != 0)
+		ret.setAttribute("id", id_name);
+	if (class_name && class_name.length != 0)
+		ret.setAttribute("class", class_name);
+	return ret;
 }
