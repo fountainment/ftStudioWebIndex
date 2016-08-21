@@ -65,6 +65,11 @@ function load_banner_resources(banner_obj)
 function finish_banner(banner_obj)
 {
 	banner_obj.loading_div.style.display = "none";
+	var len = banner_obj.id_list.length;
+	for (var i = 0; i < len; i++) {
+		$("#" + banner_obj.id_list[i]).css("background", 'url(image/' + banner_obj.resources[i] + ') no-repeat');
+		$("#" + banner_obj.id_list[i]).css("background-size", '100% auto');
+	}
 	$(banner_obj.content_div).fadeIn(500);
 	tellSidebar_ItemOnload(banner_obj.id, banner_obj.name);
 }
@@ -82,6 +87,7 @@ function load_banner(banner_array)
 		var banner_div = makeDiv(banner_obj.id, "banner " + banner_obj.name + "-banner");
 		banner_obj.div = banner_div;
 		banner_obj.index = i;
+		banner_obj.id_list = new Array();
 		banner_obj.resources = new Array();
 		if (banner_obj.height) {
 			$(banner_div).css("padding-bottom", banner_obj.height);
@@ -96,12 +102,15 @@ function load_banner(banner_array)
 		content_div.style.display = "none";
 		content_div.appendChild(makeDiv(banner_obj.id + "-back", "banner-child banner-back"));
 		content_div.appendChild(makeDiv(banner_obj.id + "-title", "banner-child banner-title"));
+		banner_obj.id_list.push(banner_obj.id + "-back");
+		banner_obj.id_list.push(banner_obj.id + "-title");
 		banner_obj.resources.push(banner_obj.name + "-back.jpg");
 		banner_obj.resources.push(banner_obj.name + "-title.png");
 		var front_num = banner_obj.front_num;
 		if (front_num) {
 			for (var j = 0; j < front_num; j++) {
 				content_div.appendChild(makeDiv(banner_obj.id + "-front" + j, "banner-child banner-front"));
+				banner_obj.id_list.push(banner_obj.id + "-front");
 				banner_obj.resources.push(banner_obj.name + "-front" + j + ".png");
 			}
 		}
