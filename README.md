@@ -39,7 +39,7 @@ banner:
 interface:
 	tellSidebar_ItemOnload(id, name)
 	tellSidebar_AllItemOnload()
-	tellSidebar_OnWhichItem(id, name)
+	tellSidebar_OnScroll()
 
 global var:
 	g_language

@@ -8,6 +8,14 @@ function getScrollTop()
 	return document.documentElement.scrollTop || document.body.scrollTop;
 }
 
+function getScrollSpace()
+{
+	var ss = $(document).height() - getWindowHeight();
+	if (ss < 0)
+		ss = 0;
+	return ss;
+}
+
 function getTopById(id)
 {
 	return $("#" + id).offset().top;
