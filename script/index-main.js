@@ -44,8 +44,10 @@ function image_onload(banner_obj)
 
 function get_image_fullname(image_name)
 {
-	//TODO
-	return image_name;
+	var ret = image_name;
+	ret = "image/" + ret;
+	ret += "?" + Math.random();
+	return ret;
 }
 
 function load_banner_resources(banner_obj)
@@ -94,6 +96,7 @@ function load_banner(banner_array)
 	}
 	if (len >= 1) {
 		banner_array[len - 1].onload = function() {
+			tellSidebar_ItemOnload(this.id, this.name);
 			banner_array.onload();
 		};
 		banner_array[0].load();
