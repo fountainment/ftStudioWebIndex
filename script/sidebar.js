@@ -34,7 +34,7 @@ function tellSidebar_ItemOnload(id, name){
 	};
 }
 function tellSidebar_AllItemOnload(){
-	$("#item-loading").delay(500).animate({left:"50px"},{duration: 300, queue: true,easing: 'easeOutQuint'}).hide(0);;
+	$("#item-loading").delay(500).animate({left:"250px"},{duration: 600, queue: true,easing: 'easeOutQuint'});;
 }
 function tellSidebar_OnScroll(){
 	
