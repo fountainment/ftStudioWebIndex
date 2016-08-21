@@ -11,10 +11,10 @@ var s;
 var loading_gif = new Image();
 var image_loader = new Image();
 var scroll_space = 0;
-var banner = [{"name":"top", "front_num":0, "height":"50%"},
-				{"name":"b1", "front_num":1},
-				{"name":"b2", "front_num":1},
-				{"name":"b3", "front_num":1}];
+var banner = [{"name":"top", "front_num":0, "height":"60%"},
+				{"name":"fragment", "front_num":1},
+				{"name":"justfall", "front_num":1},
+				{"name":"fountain", "front_num":1}];
 
 function window_update()
 {
@@ -44,6 +44,8 @@ function load_banner(banner_array)
 		if (banner.height) {
 			$(banner_div).css("padding-bottom", banner.height);
 		}
+		$(banner_div).css("background-color", randomColor());
+		//banner_div.onload = function () {alert(this.id);};
 		main_div.appendChild(banner_div);
 	}
 }
@@ -72,7 +74,7 @@ function register_callback_function()
 
 	window.onload = function() {
 		//$("body").hide(0);
-		//$("body").css("visibility", "visible");
+		$("body").css("visibility", "visible");
 		load_banner(banner);
 	}
 }
