@@ -15,22 +15,26 @@ function tellSidebar_WindowOnload(){
 	
 }
 function tellSidebar_ItemOnload(id, name){
-	var item = makeDiv("sidebar-"+id,"sidebar-item");
-	item.style.backgroundImage="url(image/"+name+"-button.png)"
+	var item = makeDiv("sidebar-" + id, "sidebar-item");
+	item.style.backgroundImage = "url(image/" + name + "-button.png)";
 	items.push(item);
-	if(items.length>1){
+	if (items.length > 1) {
 		$("#items").animate({top:(-25*items.length).toString()+"px"},{duration: 200, queue: false,easing: 'easeOutQuart'});
 	}
 	$("#items").append(item);
-	$("#sidebar-"+id).animate({left:"0px"},{duration: 300, queue: false,easing: 'easeOutBack'});
-	getItById("sidebar-"+id).onmouseover=function(){
-		item.style.backgroundPositionY="-50px";
+	$(item).animate({left:"0px"},{duration: 300, queue: false,easing: 'easeOutBack'});
+	item.onmouseover = function() {
+		$(this).css("background-position", "0px -50px");
 	};
-	getItById("sidebar-"+id).onmouseout=function(){
-		item.style.backgroundPositionY="0px";
+	item.onmouseout = function() {
+		$(this).css("background-position", "0px 0px");
 	};
-	getItById("sidebar-"+id).onmousedown=function(){
-		scrollToAnimation(id,500);
+	item.onmousedown=function(){
+		if(this.id=="sidebar-banner0"){
+			$("html, body").animate({scrollTop:0}, 500);
+		}else{
+			scrollToAnimation(id,500);
+		}
 	};
 }
 function tellSidebar_AllItemOnload(){
