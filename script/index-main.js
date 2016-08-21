@@ -9,7 +9,6 @@ var s;
 (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
 
 var loading_gif = new Image();
-var image_loader = new Image();
 var scroll_space = 0;
 var banner = [{"name":"top", "front_num":0, "height":"60%"},
 				{"name":"fragment", "front_num":1},
@@ -34,8 +33,36 @@ function load_loading_gif()
 	loading_gif.src = "image/loading.gif";
 }
 
+function image_onload(banner_obj)
+{
+	banner_obj.image_toload_num -= 1;
+	if (banner_obj.image_toload_num == 0) {
+		banner_obj.onload();
+	}
+}
+
+function get_image_fullname(image_name)
+{
+	//TODO
+	return image_name;
+}
+
 function load_banner_resources(banner_obj)
 {
+	var resource_array = banner_obj.resources;
+	if (resource_array) {
+		var len = resource_array.length;
+		banner_obj.image_toload_num = len;
+		loading_resource = banner_obj;
+		for (var i = 0; i < len; i++) {
+			var img = new Image;
+			img.src = get_image_fullname(resource_array[i]);
+			img.banner = banner_obj;
+			img.onload = function() {
+				image_onload(this.banner);
+			}
+		}
+	}
 }
 
 function load_banner(banner_array)
@@ -43,7 +70,6 @@ function load_banner(banner_array)
 	var main_div = getItById("index-main");
 	var len = banner_array.length
 	banner_array.onload = function() {
-
 	}
 	for (var i = 0; i < len; i++) {
 		var banner_obj = banner_array[i];
