@@ -9,7 +9,7 @@ var s;
 (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
 
 var scroll_space = 0;
-var banner = [{"name":"top", "front_num":0, "height":"60%"},
+var banner = [{"name":"top", "front_num":0, "height":"55%"},
 				{"name":"fragment", "front_num":1},
 				{"name":"justfall", "front_num":1},
 				{"name":"fountain", "front_num":1}];
@@ -72,7 +72,10 @@ function finish_banner(banner_obj)
 		$("#" + banner_obj.id_list[i]).css("background", 'url(' + get_image_fullname(banner_obj.resources[i]) + ') no-repeat');
 		$("#" + banner_obj.id_list[i]).css("background-size", '100% auto');
 	}
-	$(banner_obj.content_div).fadeIn(500);
+	if (banner_obj.index == 0) {
+		$("body").fadeIn(1000);
+	}
+	$(banner_obj.content_div).fadeIn(1000);
 	tellSidebar_ItemOnload(banner_obj.id, banner_obj.name);
 }
 
@@ -96,6 +99,9 @@ function load_banner(banner_array)
 		}
 		banner_obj.load = function () {
 			var loading_div = makeDiv("", "loading");
+			if (this.index == 0) {
+				loading_div.style.display = "none";
+			}
 			this.loading_div = loading_div;
 			this.div.appendChild(loading_div);
 			load_banner_resources(this);
@@ -161,6 +167,8 @@ function register_callback_function()
 	}
 
 	window.onload = function() {
+		$("body").hide(0);
+		$("body").css("visibility", "visible");
 		load_banner(banner);
 		tellSidebar_WindowOnload();
 	}
