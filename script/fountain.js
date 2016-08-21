@@ -10,7 +10,7 @@ function getWindowHeight()
 
 function getScrollTop()
 {
-	return document.documentElement.scrollTop || document.body.scrollTop;
+	return $(document).scrollTop();
 }
 
 function getScrollSpace()

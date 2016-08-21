@@ -22,10 +22,6 @@ body {
 	background-size:100% auto;
 }
 
-::-webkit-scrollbar {
-	width:0px;
-}
-
 #index-main {
 	width:100%;
 }

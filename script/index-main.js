@@ -8,17 +8,20 @@ var s;
 (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
 (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
 
-var scroll_space = 0;
 var banner = [{"name":"top", "front_num":0, "height":"55%"},
 				{"name":"fragment", "front_num":1},
 				{"name":"justfall", "front_num":1},
 				{"name":"fountain", "front_num":1}];
 
 var session_id = Math.random();
+var mspf = 25;
+var scroll_speed_delta = 20;
+var scroll_speed_max = 40;
+var pf_speed_delta = 5;
+var scroll_speed = 0;
 
 function window_update()
 {
-	scroll_space = getScrollSpace();
 }
 
 function scroll_update()
@@ -38,8 +41,34 @@ function scroll_update()
 	tellSidebar_OnScroll();
 }
 
+function real_scroll(){
+	if (scroll_speed > 0 || getScrollTop() > 0) {
+		$(document).scrollTop(getScrollTop() + scroll_speed);
+	}
+	if (scroll_speed > 0)
+		scroll_speed -= pf_speed_delta;
+	if (scroll_speed < 0)
+		scroll_speed += pf_speed_delta;
+}
+
 function scroll()
 {
+	stopBodyAnimation();
+	var scroll_top = getScrollTop();
+	if (event.wheelDelta > 0) {
+		if (scroll_top > 0) {
+			if (scroll_speed > -scroll_speed_max)
+				scroll_speed -= scroll_speed_delta;
+		}
+	} else {
+		if (scroll_top < getScrollSpace()) {
+			if (scroll_speed < scroll_speed_max)
+				scroll_speed += scroll_speed_delta;
+		} else {
+			scroll_speed = 0;
+		}
+	}
+	return false;
 }
 
 function image_onload(banner_obj)
@@ -86,7 +115,13 @@ function finish_banner(banner_obj)
 	}
 	$(banner_obj.content_div).fadeIn(1000);
 	if (banner_obj.index == 0) {
-		$("body").fadeIn(1000);
+		$("body").fadeIn(1000, function() {
+			if (!Sys.firefox) {
+				window.onmousewheel = function() {
+					return scroll();
+				};
+			}
+		});
 	}
 	tellSidebar_ItemOnload(banner_obj.id, banner_obj.name);
 }
@@ -180,16 +215,15 @@ function register_callback_function()
 		scroll_update();
 	}
 
-	if (!Sys.firefox) {
-		window.onmousewheel = function() {
-			return scroll();
-		};
-	}
-
 	window.onload = function() {
 		$("body").hide(0);
 		$("body").css("visibility", "visible");
+		if (!Sys.firefox) {
+			var r_scroll=setInterval("real_scroll()", mspf);
+			document.body.style.overflowY = "hidden";
+		}
 		load_banner(banner);
+		scroll_update();
 		tellSidebar_WindowOnload();
 	}
 }
