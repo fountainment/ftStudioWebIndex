@@ -8,7 +8,6 @@ var s;
 (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
 (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
 
-var loading_gif = new Image();
 var scroll_space = 0;
 var banner = [{"name":"top", "front_num":0, "height":"60%"},
 				{"name":"fragment", "front_num":1},
@@ -27,11 +26,6 @@ function scroll_update()
 
 function scroll()
 {
-}
-
-function load_loading_gif()
-{
-	loading_gif.src = "image/loading.gif";
 }
 
 function image_onload(banner_obj)
@@ -68,6 +62,13 @@ function load_banner_resources(banner_obj)
 	}
 }
 
+function finish_banner(banner_obj)
+{
+	banner_obj.loading_div.style.display = "none";
+	$(banner_obj.content_div).fadeIn(500);
+	tellSidebar_ItemOnload(banner_obj.id, banner_obj.name);
+}
+
 function load_banner(banner_array)
 {
 	var main_div = getItById("index-main");
@@ -78,25 +79,47 @@ function load_banner(banner_array)
 	for (var i = 0; i < len; i++) {
 		var banner_obj = banner_array[i];
 		banner_obj.id = "banner" + i;
-		var banner_div = makeDiv(banner_obj.id, "banner");
+		var banner_div = makeDiv(banner_obj.id, "banner " + banner_obj.name + "-banner");
 		banner_obj.div = banner_div;
 		banner_obj.index = i;
+		banner_obj.resources = new Array();
 		if (banner_obj.height) {
 			$(banner_div).css("padding-bottom", banner_obj.height);
 		}
-		$(banner_div).css("background-color", randomColor());
-		banner_obj.load = function () {load_banner_resources(this);};
+		banner_obj.load = function () {
+			var loading_div = makeDiv("", "loading");
+			this.loading_div = loading_div;
+			this.div.appendChild(loading_div);
+			load_banner_resources(this);
+		};
+		var content_div = makeDiv(banner_obj.id + "-content", "banner-child");
+		content_div.style.display = "none";
+		content_div.appendChild(makeDiv(banner_obj.id + "-back", "banner-child banner-back"));
+		content_div.appendChild(makeDiv(banner_obj.id + "-title", "banner-child banner-title"));
+		banner_obj.resources.push(banner_obj.name + "-back.jpg");
+		banner_obj.resources.push(banner_obj.name + "-title.png");
+		var front_num = banner_obj.front_num;
+		if (front_num) {
+			for (var j = 0; j < front_num; j++) {
+				content_div.appendChild(makeDiv(banner_obj.id + "-front" + j, "banner-child banner-front"));
+				banner_obj.resources.push(banner_obj.name + "-front" + j + ".png");
+			}
+		}
+		var control_div = makeDiv(banner_obj.id + "-control", "banner-child banner-control");
+		content_div.appendChild(control_div);
+		banner_obj.content_div = content_div;
+		banner_div.appendChild(content_div);
 		main_div.appendChild(banner_div);
 	}
 	for (var i = 0; i < len - 1; i++) {
 			banner_array[i].onload = function() {
-				tellSidebar_ItemOnload(this.id, this.name);
+				finish_banner(this);
 				banner_array[this.index + 1].load();
 			};
 	}
 	if (len >= 1) {
 		banner_array[len - 1].onload = function() {
-			tellSidebar_ItemOnload(this.id, this.name);
+			finish_banner(this);
 			banner_array.onload();
 		};
 		banner_array[0].load();
@@ -127,8 +150,6 @@ function register_callback_function()
 	}
 
 	window.onload = function() {
-		//$("body").hide(0);
-		$("body").css("visibility", "visible");
 		load_banner(banner);
 		tellSidebar_WindowOnload();
 	}
@@ -136,7 +157,6 @@ function register_callback_function()
 
 function index_main_entry()
 {
-	load_loading_gif();
 	register_callback_function();
 }
 

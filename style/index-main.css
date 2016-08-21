@@ -8,7 +8,17 @@ body {
 	margin:0px;
 	width:100%;
 	background-color:#111;
-	visibility:hidden;
+}
+
+.loading {
+	width:10%;
+	height:40%;
+	position:absolute;
+	left:45%;
+	top:30%;
+	background:url(../image/loading.gif) no-repeat;
+	background-position:top left;
+	background-size:100% auto;
 }
 
 ::-webkit-scrollbar {

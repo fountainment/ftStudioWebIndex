@@ -13,10 +13,12 @@ function tellSidebar_WindowOnload(){
 	};
 
 	//test code
+	/*
 	tellSidebar_ItemOnload("banner0","top");
 	tellSidebar_ItemOnload("banner1","fragment");
 	tellSidebar_ItemOnload("banner2","fountain");
 	tellSidebar_ItemOnload("banner3","justfall");
+	*/
 }
 function tellSidebar_ItemOnload(id, name){
 	var item = makeDiv("sidebar-"+id,"sidebar-item");
