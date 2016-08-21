@@ -11,6 +11,7 @@
 .sidebar-item{
 	background-repeat: no-repeat;
 	background-size: cover;
+	background-position-y: 0px;
 	position: relative;
 	left: 50px;
 	height: 50px;
