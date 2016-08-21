@@ -23,6 +23,18 @@ function window_update()
 
 function scroll_update()
 {
+	var len = banner.length;
+	for (var i = 0; i < len; i++) {
+		var pos = getWindowPositionById(banner[i].id);
+		if (pos < 0.0 || pos > 100.0) continue;
+		if (i == 0) {
+			var scrollTop = getScrollTop();
+			$(banner[i].div.content_div.back_div).css("background-position", "0px " + (scrollTop * 0.6) + "px");
+		} else {
+			$(banner[i].div.content_div.back_div).css("background-position", "100% " + pos + "%");
+			$(banner[i].div.content_div.front_div).css("background-position", "100% " + (120.0 - pos * 1.2) + "%");
+		}
+	}
 	tellSidebar_OnScroll();
 }
 
@@ -55,7 +67,7 @@ function load_banner_resources(banner_obj)
 		loading_resource = banner_obj;
 		for (var i = 0; i < len; i++) {
 			var img = new Image;
-			img.src = get_image_fullname(resource_array[i]);
+			img.src = resource_array[i];
 			img.banner = banner_obj;
 			img.onload = function() {
 				image_onload(this.banner);
@@ -69,13 +81,13 @@ function finish_banner(banner_obj)
 	banner_obj.loading_div.style.display = "none";
 	var len = banner_obj.id_list.length;
 	for (var i = 0; i < len; i++) {
-		$("#" + banner_obj.id_list[i]).css("background", 'url(' + get_image_fullname(banner_obj.resources[i]) + ') no-repeat');
+		$("#" + banner_obj.id_list[i]).css("background", 'url(' + banner_obj.resources[i] + ') no-repeat');
 		$("#" + banner_obj.id_list[i]).css("background-size", '100% auto');
 	}
+	$(banner_obj.content_div).fadeIn(1000);
 	if (banner_obj.index == 0) {
 		$("body").fadeIn(1000);
 	}
-	$(banner_obj.content_div).fadeIn(1000);
 	tellSidebar_ItemOnload(banner_obj.id, banner_obj.name);
 }
 
@@ -107,19 +119,27 @@ function load_banner(banner_array)
 			load_banner_resources(this);
 		};
 		var content_div = makeDiv(banner_obj.id + "-content", "banner-child");
+		banner_obj.div.content_div = content_div;
 		content_div.style.display = "none";
-		content_div.appendChild(makeDiv(banner_obj.id + "-back", "banner-child banner-back"));
-		content_div.appendChild(makeDiv(banner_obj.id + "-title", "banner-child banner-title"));
+		var back_div = makeDiv(banner_obj.id + "-back", "banner-child banner-back");
+		var title_div = makeDiv(banner_obj.id + "-title", "banner-child banner-title");
+		content_div.back_div = back_div;
+		content_div.title_div = title_div;
+		content_div.appendChild(back_div);
+		content_div.appendChild(title_div);
 		banner_obj.id_list.push(banner_obj.id + "-back");
 		banner_obj.id_list.push(banner_obj.id + "-title");
-		banner_obj.resources.push(banner_obj.name + "-back.jpg");
-		banner_obj.resources.push(banner_obj.name + "-title.png");
+		banner_obj.resources.push(get_image_fullname(banner_obj.name + "-back.jpg"));
+		banner_obj.resources.push(get_image_fullname(banner_obj.name + "-title.png"));
+		content_div.front_div = new Array();
 		var front_num = banner_obj.front_num;
 		if (front_num) {
 			for (var j = 0; j < front_num; j++) {
-				content_div.appendChild(makeDiv(banner_obj.id + "-front" + j, "banner-child banner-front"));
+				var front_div = makeDiv(banner_obj.id + "-front" + j, "banner-child banner-front");
+				content_div.front_div.push(front_div);
+				content_div.appendChild(front_div);
 				banner_obj.id_list.push(banner_obj.id + "-front" + j);
-				banner_obj.resources.push(banner_obj.name + "-front" + j + ".png");
+				banner_obj.resources.push(get_image_fullname(banner_obj.name + "-front" + j + ".png"));
 			}
 		}
 		var control_div = makeDiv(banner_obj.id + "-control", "banner-child banner-control");
