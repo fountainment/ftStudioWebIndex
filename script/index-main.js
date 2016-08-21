@@ -110,7 +110,7 @@ function load_banner(banner_array)
 		if (front_num) {
 			for (var j = 0; j < front_num; j++) {
 				content_div.appendChild(makeDiv(banner_obj.id + "-front" + j, "banner-child banner-front"));
-				banner_obj.id_list.push(banner_obj.id + "-front");
+				banner_obj.id_list.push(banner_obj.id + "-front" + j);
 				banner_obj.resources.push(banner_obj.name + "-front" + j + ".png");
 			}
 		}
