@@ -9,9 +9,9 @@ var s;
 (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
 
 var banner = [{"name":"top", "front_num":0, "height":"55%"},
-				{"name":"fragment", "front_num":1, "height":"25%", "has_button":true},
-				{"name":"justfall", "front_num":1, "height":"25%", "has_button":true},
-				{"name":"fountain", "front_num":1, "height":"25%", "has_button":true}];
+				{"name":"fragment", "front_num":1, "height":"25%", "has_button":true, "url":"fragment"},
+				{"name":"justfall", "front_num":1, "height":"25%", "has_button":true, "url":"justfall"},
+				{"name":"fountain", "front_num":1, "height":"25%", "has_button":true, "url":"fountain"}];
 
 var session_id = Math.random();
 var mspf = 25;
@@ -180,13 +180,31 @@ function load_banner(banner_array)
 		}
 		if (banner_obj.has_button == true) {
 			var control_div = makeDiv(banner_obj.id + "-control", "banner-child banner-control");
-			var button_div = makeDiv(banner_obj.id + "-button", "banner-child banner-button");
+			var button_div = makeDiv(banner_obj.id + "-button", "banner-button");
 			control_div.button_div = button_div;
 			control_div.appendChild(button_div);
 			content_div.control_div = control_div;
 			content_div.appendChild(control_div);
 			banner_obj.id_list.push(button_div.id);
-			banner_obj.resources.push(get_image_fullname(banner_obj.name + "-button.png"));
+			banner_obj.resources.push(get_image_fullname(banner_obj.name + "-banner-button.png"));
+			if (banner_obj.url) {
+				button_div.url = banner_obj.url;
+			}
+			button_div.onmouseover = function() {
+				$(this).css("background-position", "100% 50%");
+			}
+			button_div.onmouseout = function() {
+				$(this).css("background-position", "100% 0%");
+			}
+			button_div.onmousedown = function() {
+				$(this).css("background-position", "100% 100%");
+			}
+			button_div.onmouseup = function() {
+				$(this).css("background-position", "100% 50%");
+				if (this.url) {
+					window.open(this.url);
+				}
+			}
 		}
 		banner_obj.content_div = content_div;
 		banner_div.appendChild(content_div);
