@@ -9,9 +9,9 @@ var s;
 (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
 
 var banner = [{"name":"top", "front_num":0, "height":"55%"},
-				{"name":"fragment", "front_num":1},
-				{"name":"justfall", "front_num":1},
-				{"name":"fountain", "front_num":1}];
+				{"name":"fragment", "front_num":1, "height":"28%"},
+				{"name":"justfall", "front_num":1, "height":"28%"},
+				{"name":"fountain", "front_num":1, "height":"28%"}];
 
 var session_id = Math.random();
 var mspf = 25;
@@ -27,15 +27,15 @@ function window_update()
 function scroll_update()
 {
 	var len = banner.length;
+	var scrollTop = getScrollTop();
 	for (var i = 0; i < len; i++) {
 		var pos = getWindowPositionById(banner[i].id);
 		if (pos < 0.0 || pos > 100.0) continue;
 		if (i == 0) {
-			var scrollTop = getScrollTop();
 			$(banner[i].div.content_div.back_div).css("background-position", "0px " + (scrollTop * 0.6) + "px");
 		} else {
 			$(banner[i].div.content_div.back_div).css("background-position", "100% " + pos + "%");
-			$(banner[i].div.content_div.front_div).css("background-position", "100% " + (120.0 - pos * 1.2) + "%");
+			$(banner[i].div.content_div.front_div).css("background-position", "100% " + (100.0 - pos) + "%");
 		}
 	}
 	tellSidebar_OnScroll();
@@ -114,6 +114,7 @@ function finish_banner(banner_obj)
 		$("#" + banner_obj.id_list[i]).css("background-size", '100% auto');
 	}
 	$(banner_obj.content_div).fadeIn(1000);
+	scroll_update();
 	if (banner_obj.index == 0) {
 		$("body").fadeIn(1000, function() {
 			if (!Sys.firefox) {
