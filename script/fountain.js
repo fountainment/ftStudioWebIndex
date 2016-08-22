@@ -58,7 +58,7 @@ function scrollToAnimation(id, ms)
 	if (scrollTarget < 0) {
 		scrollTarget = 0;
 	}
-	$("html, body").animate({scrollTop:scrollTarget}, ms);
+	$("html, body").animate({scrollTop:scrollTarget}, {duration: ms, queue: false,easing: 'easeOutQuart'});
 }
 
 function makeDiv(id_name, class_name)

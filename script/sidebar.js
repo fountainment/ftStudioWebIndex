@@ -33,7 +33,7 @@ function tellSidebar_ItemOnload(id, name){
 		if(this.id=="sidebar-banner0"){
 			$("html, body").animate({scrollTop:0}, 500);
 		}else{
-			scrollToAnimation(id,500);
+			scrollToAnimation(id,800);
 		}
 	};
 }
