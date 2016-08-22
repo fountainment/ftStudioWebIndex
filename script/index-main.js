@@ -9,9 +9,9 @@ var s;
 (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
 
 var banner = [{"name":"top", "front_num":0, "height":"55%"},
-				{"name":"fragment", "front_num":1, "height":"28%"},
-				{"name":"justfall", "front_num":1, "height":"28%"},
-				{"name":"fountain", "front_num":1, "height":"28%"}];
+				{"name":"fragment", "front_num":1, "height":"28%", "has_button":true},
+				{"name":"justfall", "front_num":1, "height":"28%", "has_button":true},
+				{"name":"fountain", "front_num":1, "height":"28%", "has_button":true}];
 
 var session_id = Math.random();
 var mspf = 25;
@@ -163,8 +163,8 @@ function load_banner(banner_array)
 		content_div.title_div = title_div;
 		content_div.appendChild(back_div);
 		content_div.appendChild(title_div);
-		banner_obj.id_list.push(banner_obj.id + "-back");
-		banner_obj.id_list.push(banner_obj.id + "-title");
+		banner_obj.id_list.push(back_div.id);
+		banner_obj.id_list.push(title_div.id);
 		banner_obj.resources.push(get_image_fullname(banner_obj.name + "-back.jpg"));
 		banner_obj.resources.push(get_image_fullname(banner_obj.name + "-title.png"));
 		content_div.front_div = new Array();
@@ -174,12 +174,20 @@ function load_banner(banner_array)
 				var front_div = makeDiv(banner_obj.id + "-front" + j, "banner-child banner-front");
 				content_div.front_div.push(front_div);
 				content_div.appendChild(front_div);
-				banner_obj.id_list.push(banner_obj.id + "-front" + j);
+				banner_obj.id_list.push(front_div.id);
 				banner_obj.resources.push(get_image_fullname(banner_obj.name + "-front" + j + ".png"));
 			}
 		}
-		var control_div = makeDiv(banner_obj.id + "-control", "banner-child banner-control");
-		content_div.appendChild(control_div);
+		if (banner_obj.has_button == true) {
+			var control_div = makeDiv(banner_obj.id + "-control", "banner-child banner-control");
+			var button_div = makeDiv(banner_obj.id + "-button", "banner-child banner-button");
+			control_div.button_div = button_div;
+			control_div.appendChild(button_div);
+			content_div.control_div = control_div;
+			content_div.appendChild(control_div);
+			banner_obj.id_list.push(button_div.id);
+			banner_obj.resources.push(get_image_fullname(banner_obj.name + "-button.png"));
+		}
 		banner_obj.content_div = content_div;
 		banner_div.appendChild(content_div);
 		main_div.appendChild(banner_div);

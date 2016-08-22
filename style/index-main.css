@@ -41,3 +41,14 @@ body {
 	top:0px;
 	left:0px;
 }
+
+.banner-button {
+	position:absolute;
+	width:16%;
+	height:16%;
+	left:42%;
+	top:75%;
+	background-size:100% auto;
+	overflow-y:hidden;
+	cursor:pointer;
+}
