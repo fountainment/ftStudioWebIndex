@@ -9,9 +9,9 @@ var s;
 (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
 
 var banner = [{"name":"top", "front_num":0, "height":"55%"},
-				{"name":"fragment", "front_num":1, "height":"28%", "has_button":true},
-				{"name":"justfall", "front_num":1, "height":"28%", "has_button":true},
-				{"name":"fountain", "front_num":1, "height":"28%", "has_button":true}];
+				{"name":"fragment", "front_num":1, "height":"25%", "has_button":true},
+				{"name":"justfall", "front_num":1, "height":"25%", "has_button":true},
+				{"name":"fountain", "front_num":1, "height":"25%", "has_button":true}];
 
 var session_id = Math.random();
 var mspf = 25;
