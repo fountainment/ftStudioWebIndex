@@ -1,5 +1,6 @@
 var items = new Array();
 var itemFocus = "sidebar-banner0";
+var itemOver = "none";
 
 function tellSidebar_WindowOnload() {
 	$("body").append("<div id='sidebar' class='sidebar'></div>");
@@ -53,9 +54,11 @@ function tellSidebar_ItemOnload(id, name) {
 		, easing: 'easeOutBack'
 	});
 	item.onmouseover = function () {
+		itemOver=this.id;
 		$(this).css("background-position", "0px -50px");
 	};
 	item.onmouseout = function () {
+		itemOver="none";
 		if (this.id == itemFocus) {
 			$(this).css("background-position", "0px -100px");
 		}
@@ -102,10 +105,12 @@ function tellSidebar_OnScroll() {
 		}
 	}
 	for (x in items) {
-		if (items[x].id == itemFocus) {
+		if (items[x].id == itemOver) {
+			$(items[x]).css("background-position", "0px -50px");
+		}else if (items[x].id == itemFocus) {
 			$(items[x]).css("background-position", "0px -100px");
 		}
-		else {
+		else{
 			$(items[x]).css("background-position", "0px 0px");
 		}
 	}
