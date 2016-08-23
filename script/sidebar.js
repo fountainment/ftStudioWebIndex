@@ -1,4 +1,5 @@
 var items = new Array();
+var itemFocus = "sidebar-banner0";
 
 function tellSidebar_WindowOnload() {
 	$("body").append("<div id='sidebar' class='sidebar'></div>");
@@ -29,7 +30,10 @@ function tellSidebar_WindowOnload() {
 
 function tellSidebar_ItemOnload(id, name) {
 	var item = makeDiv("sidebar-" + id, "sidebar-item");
-	item.style.backgroundImage = "url(image/" + name + "-button.png)";
+	var bgimg = new Image();
+	bgimg.src = "image/" + name + "-button.png";
+	//bgimg.reload();
+	item.style.backgroundImage = "url(" + bgimg.src + ")";
 	items.push(item);
 	if (items.length > 1) {
 		$("#items").animate({
@@ -52,7 +56,12 @@ function tellSidebar_ItemOnload(id, name) {
 		$(this).css("background-position", "0px -50px");
 	};
 	item.onmouseout = function () {
-		$(this).css("background-position", "0px 0px");
+		if (this.id == itemFocus) {
+			$(this).css("background-position", "0px -100px");
+		}
+		else {
+			$(this).css("background-position", "0px 0px");
+		}
 	};
 	item.onmousedown = function () {
 		if (this.id == "sidebar-banner0") {
@@ -76,8 +85,55 @@ function tellSidebar_AllItemOnload() {
 	});;
 }
 
-function tellSidebar_OnScroll() {}
+function tellSidebar_OnScroll() {
+	var winH = getWindowHeight();
+	var totalH = 0;
+	var itemOffset= 0;
+	for (x in items) {
+		if (x == 0) {
+			totalH = 0;
+		}
+		else {
+			totalH = winH * 0.5;
+		}
+		itemOffset = getScrollOffsetById("banner" + items[x].id.slice(-1));
+		if (Math.abs(itemOffset - (winH * 0.5)<50) ) {
+			itemFocus = items[x].id;
+		}
+	}
+	for (x in items) {
+		if (items[x].id == itemFocus) {
+			$(items[x]).css("background-position", "0px -100px");
+		}
+		else {
+			$(items[x]).css("background-position", "0px 0px");
+		}
+	}
+}
 
 function tellSidebar_OnResize() {
+	var winH = getWindowHeight();
+	var totalH = 0;
+	var itemOffset= 0;
+	for (x in items) {
+		if (x == 0) {
+			totalH = 0;
+		}
+		else {
+			totalH = winH * 0.5;
+		}
+		itemOffset = getScrollOffsetById("banner" + items[x].id.slice(-1));
+		if (Math.abs(itemOffset - (winH * 0.5)<50) ) {
+			itemFocus = items[x].id;
+		}
+	}
+	for (x in items) {
+		if (items[x].id == itemFocus) {
+			$(items[x]).css("background-position", "0px -100px");
+		}
+		else {
+			$(items[x]).css("background-position", "0px 0px");
+		}
+	}
 	getItById("sidebar").style.paddingTop = (getWindowHeight() * 0.5).toString() + "px";
 }
