@@ -8,7 +8,10 @@ body {
 	margin:0px;
 	width:100%;
 	background-color:#111;
-	visibility:hidden;
+}
+
+#content {
+	visibility: hidden;
 }
 
 .loading {
@@ -51,4 +54,11 @@ body {
 	background-size:100% auto;
 	overflow-y:hidden;
 	cursor:pointer;
+}
+
+.banner-subbutton {
+	position:absolute;
+	width:4%;
+	height:16%;
+	top:75%;
 }
