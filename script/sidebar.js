@@ -68,9 +68,8 @@ function tellSidebar_ItemOnload(id, name) {
 	};
 	item.onmousedown = function () {
 		if (this.id == "sidebar-banner0") {
-			$("html, body").animate({
-				scrollTop: 0
-			}, 500);
+			//stopBodyAnimation();
+			$("html, body").animate({scrollTop: 0}, {duration: 800, queue: false,easing: 'easeOutQuart'});
 		}
 		else {
 			scrollToAnimation(id, 800);
