@@ -50,7 +50,7 @@ function stopBodyAnimation()
 
 function scrollToAnimation(id, ms)
 {
-	stopBodyAnimation();
+	//stopBodyAnimation();
 	var elementHeight = getInnerHeightById(id);
 	var windowHeight = getWindowHeight();
 	var topPosition = getTopById(id);
