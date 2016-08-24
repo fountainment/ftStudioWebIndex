@@ -8,10 +8,10 @@ var s;
 (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
 (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
 
-var banner = [{"name":"top", "front_num":0, "height":"55%"},
+var banner = [{"name":"top", "height":"55%"},
 				{"name":"fragment", "front_num":1, "height":"25%", "has_button":true, "url":"fragment"},
 				{"name":"justfall", "front_num":1, "height":"25%", "has_button":true, "url":"justfall"},
-				{"name":"fountain", "front_num":1, "height":"25%", "has_button":true, "url":"fountain"}];
+				{"name":"fountain", "front_num":1, "height":"25%", "has_button":true, "subbutton_num":1, "url":"fountain"}];
 
 var session_id = Math.random();
 var mspf = 25;
@@ -116,15 +116,34 @@ function finish_banner(banner_obj)
 	$(banner_obj.content_div).fadeIn(1000);
 	scroll_update();
 	if (banner_obj.index == 0) {
-		$("body").fadeIn(1000, function() {
-			if (!Sys.firefox) {
-				window.onmousewheel = function() {
-					return scroll();
-				};
-			}
-		});
+		$("#content").fadeIn(1000);
 	}
 	tellSidebar_ItemOnload(banner_obj.id, banner_obj.name);
+}
+
+function preload_image(banner_obj, div_obj, image_name)
+{
+	banner_obj.id_list.push(div_obj.id);
+	banner_obj.resources.push(get_image_fullname(image_name));
+}
+
+function register_button(button_obj)
+{
+	button_obj.onmouseover = function() {
+		$(this).css("background-position", "100% 50%");
+	}
+	button_obj.onmouseout = function() {
+		$(this).css("background-position", "100% 0%");
+	}
+	button_obj.onmousedown = function() {
+		$(this).css("background-position", "100% 100%");
+	}
+	button_obj.onmouseup = function() {
+		$(this).css("background-position", "100% 50%");
+		if (this.url) {
+			window.open(this.url);
+		}
+	}
 }
 
 function load_banner(banner_array)
@@ -163,10 +182,8 @@ function load_banner(banner_array)
 		content_div.title_div = title_div;
 		content_div.appendChild(back_div);
 		content_div.appendChild(title_div);
-		banner_obj.id_list.push(back_div.id);
-		banner_obj.id_list.push(title_div.id);
-		banner_obj.resources.push(get_image_fullname(banner_obj.name + "-back.jpg"));
-		banner_obj.resources.push(get_image_fullname(banner_obj.name + "-title.png"));
+		preload_image(banner_obj, back_div, banner_obj.name + "-back.jpg");
+		preload_image(banner_obj, title_div, banner_obj.name + "-title.png");
 		content_div.front_div = new Array();
 		var front_num = banner_obj.front_num;
 		if (front_num) {
@@ -174,8 +191,7 @@ function load_banner(banner_array)
 				var front_div = makeDiv(banner_obj.id + "-front" + j, "banner-child banner-front");
 				content_div.front_div.push(front_div);
 				content_div.appendChild(front_div);
-				banner_obj.id_list.push(front_div.id);
-				banner_obj.resources.push(get_image_fullname(banner_obj.name + "-front" + j + ".png"));
+				preload_image(banner_obj, front_div, banner_obj.name + "-front" + j + ".png");
 			}
 		}
 		if (banner_obj.has_button == true) {
@@ -185,24 +201,19 @@ function load_banner(banner_array)
 			control_div.appendChild(button_div);
 			content_div.control_div = control_div;
 			content_div.appendChild(control_div);
-			banner_obj.id_list.push(button_div.id);
-			banner_obj.resources.push(get_image_fullname(banner_obj.name + "-banner-button.png"));
+			preload_image(banner_obj, button_div, banner_obj.name + "-banner-button.png");
 			if (banner_obj.url) {
 				button_div.url = banner_obj.url;
 			}
-			button_div.onmouseover = function() {
-				$(this).css("background-position", "100% 50%");
-			}
-			button_div.onmouseout = function() {
-				$(this).css("background-position", "100% 0%");
-			}
-			button_div.onmousedown = function() {
-				$(this).css("background-position", "100% 100%");
-			}
-			button_div.onmouseup = function() {
-				$(this).css("background-position", "100% 50%");
-				if (this.url) {
-					window.open(this.url);
+			register_button(button_div);
+			var subbutton_num = banner_obj.subbutton_num;
+			if (subbutton_num) {
+				for (var j = 0; j < subbutton_num; j++) {
+					var subbutton_div = makeDiv(banner_obj.id + "-subbutton" + j, "banner-subbutton");
+					subbutton_div.style.left = (58 + j * 4) + "%";
+					control_div.appendChild(subbutton_div);
+					register_button(subbutton_div);
+					preload_image(banner_obj, subbutton_div, banner_obj.name + "-banner-subbutton" + j + ".png");
 				}
 			}
 		}
@@ -243,11 +254,14 @@ function register_callback_function()
 	}
 
 	window.onload = function() {
-		$("body").hide(0);
-		$("body").css("visibility", "visible");
+		$("#content").hide(0);
+		$("#content").css("visibility", "visible");
 		if (!Sys.firefox) {
 			var r_scroll=setInterval("real_scroll()", mspf);
 			document.body.style.overflowY = "hidden";
+			window.onmousewheel = function() {
+				return scroll();
+			};
 		}
 		load_banner(banner);
 		scroll_update();
