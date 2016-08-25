@@ -210,7 +210,7 @@ function load_banner(banner_array)
 			if (subbutton_num) {
 				for (var j = 0; j < subbutton_num; j++) {
 					var subbutton_div = makeDiv(banner_obj.id + "-subbutton" + j, "banner-subbutton");
-					subbutton_div.style.left = (58 + j * 4) + "%";
+					subbutton_div.style.left = (57 + j * 4) + "%";
 					control_div.appendChild(subbutton_div);
 					register_button(subbutton_div);
 					preload_image(banner_obj, subbutton_div, banner_obj.name + "-banner-subbutton" + j + ".png");
