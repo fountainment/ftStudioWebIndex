@@ -64,21 +64,60 @@ body {
 	cursor:pointer;
 }
 
-.footer-logo{
-	opacity: .2;
-	width: 10%;
-	position: absolute;
-	height:100%;
-	top: 0px;
-	left: 45%;
-	background-image:url(../image/footer-logo.png);
-	background-position: center;
-	background-size: contain;
-	background-repeat: no-repeat;
+.footer{
+    text-align: center;
+    position: relative;
+    top: 0px;
+    bottom: 0px;
 }
 
-.footer-logo a{
-	font-family: "微软雅黑";
-	font-size: 10px;
-	font-weight: bold;
+.footer-back{
+    opacity: .15;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    top: 0px;
+    bottom: 0px;
+    background-image: url(../image/footer-back.png);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: auto 100%;
+}
+
+.footer-logo{
+    display: inline-block;
+	width: 6.5%;
+    padding-top: 10%;
+    margin-bottom: -5px;
+	background-image:url(../image/footer-logo.png);
+	background-position: center bottom;
+	background-size: 150% auto;
+	background-repeat: no-repeat;
+    cursor:pointer;
+}
+
+.footer-block{
+    font-family: "Microsoft YaHei","Microsoft JhengHei","黑体","宋体";
+    font-size: 0.9em;
+    height: 2.8em;
+    bottom: 0.3em;
+    line-height: 1.4em;
+}
+.footer-block p{
+    white-space:nowrap;
+    color: #111;
+    margin: 0;
+    text-align: center;
+}
+.footer-block a{
+    color: #111;
+    text-decoration: none;
+}
+.footer-block a:hover{
+    color: black;
+}
+.contact a{
+    font-weight: bold;
+    padding-right: 0.5em;
+    margin-right: -0.1em;
 }
