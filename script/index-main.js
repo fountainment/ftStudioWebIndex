@@ -74,7 +74,7 @@ function scroll()
 function image_onload(banner_obj)
 {
 	banner_obj.image_toload_num -= 1;
-	if (banner_obj.image_toload_num == 0) {
+	if (banner_obj.image_toload_num <= 0) {
 		banner_obj.onload();
 	}
 }
