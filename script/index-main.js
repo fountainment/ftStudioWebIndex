@@ -11,7 +11,7 @@ var s;
 var banner = [{"name":"top", "height":"55%"},
 				{"name":"fragment", "front_num":1, "height":"25%", "has_button":true, "url":"fragment"},
 				{"name":"justfall", "front_num":1, "height":"25%", "has_button":true, "url":"justfall"},
-				{"name":"fountain", "front_num":1, "height":"25%", "has_button":true, "subbutton_num":1, "url":"fountain"}];
+				{"name":"fountain", "front_num":1, "height":"25%", "has_button":true, "subbutton_num":1, "url":"fountain", "subbutton_url":["https://github.com/fountainment/FountainEngineImproved"]}];
 
 var session_id = Math.random();
 var mspf = 25;
@@ -210,6 +210,7 @@ function load_banner(banner_array)
 			if (subbutton_num) {
 				for (var j = 0; j < subbutton_num; j++) {
 					var subbutton_div = makeDiv(banner_obj.id + "-subbutton" + j, "banner-subbutton");
+					subbutton_div.url = banner_obj.subbutton_url[j];
 					subbutton_div.style.left = (57 + j * 4) + "%";
 					control_div.appendChild(subbutton_div);
 					register_button(subbutton_div);
