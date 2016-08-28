@@ -69,6 +69,10 @@ body {
     position: relative;
     top: 0px;
     bottom: 0px;
+    background-image: url(../image/footer-back.png);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: auto 100%;
 }
 
 .footer-back{
@@ -105,12 +109,12 @@ body {
 }
 .footer-block p{
     white-space:nowrap;
-    color: #111;
+    color: #555;
     margin: 0;
     text-align: center;
 }
 .footer-block a{
-    color: #111;
+    color: #222;
     text-decoration: none;
 }
 .footer-block a:hover{
