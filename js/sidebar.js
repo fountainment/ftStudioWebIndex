@@ -32,7 +32,7 @@ function tellSidebar_WindowOnload() {
 function tellSidebar_ItemOnload(id, name) {
 	var item = makeDiv("sidebar-" + id, "sidebar-item");
 	var bgimg = new Image();
-	bgimg.src = "image/" + name + "-button.png";
+	bgimg.src = "img/" + name + "-button.png";
 	//bgimg.reload();
 	item.style.backgroundImage = "url(" + bgimg.src + ")";
 	items.push(item);

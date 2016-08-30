@@ -82,7 +82,7 @@ function image_onload(banner_obj)
 function get_image_fullname(image_name)
 {
 	var ret = image_name;
-	ret = "image/" + ret;
+	ret = "img/" + ret;
 	ret += "?" + session_id;
 	return ret;
 }
