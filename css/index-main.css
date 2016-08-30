@@ -20,7 +20,7 @@ body {
 	position:absolute;
 	left:45%;
 	top:30%;
-	background:url(../image/loading.gif) no-repeat;
+	background:url(../img/loading.gif) no-repeat;
 	background-position:top left;
 	background-size:100% auto;
 }
@@ -69,7 +69,7 @@ body {
     position: relative;
     top: 0px;
     bottom: 0px;
-    background-image: url(../image/footer-back.png);
+    background-image: url(../img/footer-back.png);
     background-repeat: no-repeat;
     background-position: center bottom;
     background-size: auto 100%;
@@ -82,7 +82,7 @@ body {
     width: 100%;
     top: 0px;
     bottom: 0px;
-    background-image: url(../image/footer-back.png);
+    background-image: url(../img/footer-back.png);
     background-repeat: no-repeat;
     background-position: center bottom;
     background-size: auto 100%;
@@ -93,7 +93,7 @@ body {
 	width: 6.5%;
     padding-top: 10%;
     margin-bottom: -5px;
-	background-image:url(../image/footer-logo.png);
+	background-image:url(../img/footer-logo.png);
 	background-position: center bottom;
 	background-size: 150% auto;
 	background-repeat: no-repeat;
