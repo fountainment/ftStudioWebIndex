@@ -32,7 +32,7 @@ function tellSidebar_WindowOnload() {
 function tellSidebar_ItemOnload(id, name) {
 	var item = makeDiv("sidebar-" + id, "sidebar-item");
 	var bgimg = new Image();
-	bgimg.src = "img/" + name + "-button.png";
+	bgimg.src = "img/" + name + "-button.png?0.1";
 	//bgimg.reload();
 	item.style.backgroundImage = "url(" + bgimg.src + ")";
 	items.push(item);
@@ -55,7 +55,11 @@ function tellSidebar_ItemOnload(id, name) {
 	});
 	item.onmouseover = function () {
 		itemOver=this.id;
-		$(this).css("background-position", "0px -50px");
+		if(this.id==itemFocus){
+			$(this).css("background-position", "0px -150px");
+		}else{
+			$(this).css("background-position", "0px -50px");
+		}
 	};
 	item.onmouseout = function () {
 		itemOver="none";
@@ -96,16 +100,20 @@ function tellSidebar_OnScroll() {
 			totalH = 0;
 		}
 		else {
-			totalH = winH * 0.5;
+			totalH = winH * 0.35;
 		}
 		itemOffset = getScrollOffsetById("banner" + items[x].id.slice(-1));
-		if (Math.abs(itemOffset - (winH * 0.5)<50) ) {
+		if (Math.abs(itemOffset - (winH * 0.35)<20) ) {
 			itemFocus = items[x].id;
 		}
 	}
 	for (x in items) {
 		if (items[x].id == itemOver) {
-			$(items[x]).css("background-position", "0px -50px");
+			if(items[x].id == itemFocus){
+				$(items[x]).css("background-position", "0px -150px");
+			}else{
+				$(items[x]).css("background-position", "0px -50px");
+			}
 		}else if (items[x].id == itemFocus) {
 			$(items[x]).css("background-position", "0px -100px");
 		}
@@ -124,10 +132,10 @@ function tellSidebar_OnResize() {
 			totalH = 0;
 		}
 		else {
-			totalH = winH * 0.5;
+			totalH = winH * 0.35;
 		}
 		itemOffset = getScrollOffsetById("banner" + items[x].id.slice(-1));
-		if (Math.abs(itemOffset - (winH * 0.5)<50) ) {
+		if (Math.abs(itemOffset - (winH * 0.35)<20) ) {
 			itemFocus = items[x].id;
 		}
 	}
